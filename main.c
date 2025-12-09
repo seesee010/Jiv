@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2024 Sebastian
+ * 
+ * This program is licensed under GPL-2.0
+ * See LICENSE file for details
+ */
+
 #include <stdio.h>
 
 //mkdir
