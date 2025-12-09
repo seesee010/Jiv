@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Sebastian
+ * Copyright (C) 2025 Sebastian
  * 
  * This program is licensed under GPL-2.0
  * See LICENSE file for details
