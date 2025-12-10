@@ -1,10 +1,5 @@
 # JIV
 
-## What does it mean?
-It could mean multiple things...
-- Like the wrong pronunciation of `gif` (you know, the cursed "jif")
-- Or **J**ava **I**s **V**erbose
-
 ## What is it for?
 Ever worked with IntelliJ?
 
@@ -14,6 +9,10 @@ I really wanted something more lightweight.
 So I created a tool that creates the same project structure as IntelliJ would, 
 but it's just a CLI tool - not a bloated IDE!
 
+## What does it mean?
+It could mean multiple things...
+- Like the wrong pronunciation of `gif` (you know, the cursed "jif")
+- Or **J**ava **I**s **V**erbose
 ## Usage
 ```bash
 jiv ProjectName
