@@ -21,6 +21,28 @@
 
 #define maxPathLen 256
 
+int writeGitIgnore(FILE *file) {
+    if (file == NULL) {
+        return -1;
+    }
+
+    // IntelliJ
+    fprintf(file, "# IntelliJ IDEA #\n");
+    fprintf(file, "out/\n");
+    fprintf(file, "!**/src/main/**/out/\n");
+    fprintf(file, "!**/src/test/**/out/\n");
+
+    fprintf(file, "\n");
+
+    // VSC
+    fprintf(file, "# VSC #\n");
+    fprintf(file, ".vscode/\n");
+
+    fflush(file);
+
+    return 0;
+}
+
 int writeHelloWorld(FILE *file) {
     if (file == NULL) {
         return -1;
@@ -36,12 +58,17 @@ int writeHelloWorld(FILE *file) {
     fprintf(file, "\t}\n");
     fprintf(file, "}\n");
 
+    fflush(file);
     return 0;
 }
 
-int createFile(FILE **file, char *pathToFile, char *fileName, char *operation) {
+int createFile(FILE **file, char *pathToFile, char *fileName, char *operation, char *language) {
     if (pathToFile != NULL) {
         MKDIR(pathToFile);
+    }
+
+    if (language == NULL) {
+        language = ".java";
     }
 
     char *path = malloc(maxPathLen);
@@ -51,7 +78,7 @@ int createFile(FILE **file, char *pathToFile, char *fileName, char *operation) {
     }
 
     // path = ...
-    snprintf(path, maxPathLen, "%s/%s.java", pathToFile, fileName);
+    snprintf(path, maxPathLen, "%s/%s%s", pathToFile, fileName, language);
 
     *file = fopen(path, operation);
 
@@ -91,27 +118,43 @@ int main(int argc, char **argv) {
     snprintf(dir_src, maxPathLen, "%s/src", dir_parent);
 
     FILE *file = NULL;
+    FILE *file2 = NULL;
 
-    if (createFile(&file, dir_src, "Main", "w") != 0) {
+// create //
+    if (createFile(&file, dir_src, "Main", "w", ".java") != 0) {
         printf("Error while creating filepath!\n");
         returnValue = 1;
-        goto err_free;
+        goto cleanup;
     }
 
+    if (createFile(&file2, dir_parent, ".gitignore", "w", "") != 0) {
+        printf("Error while creating filepath!\n");
+        returnValue = 1;
+        goto cleanup;
+    }
+
+// write //
     // open Main.java
     if (writeHelloWorld(file) != 0) {
-        printf("Error while writing into File!\n");
+        printf("Error while writing into File! (Main.java)\n");
         returnValue = 1;
-        goto err_file;
+        goto cleanup;
     }
 
-    // cleanup
-    err_file:
+    if (writeGitIgnore(file2) != 0) {
+        printf("Error while writing into File! (GitIgnore)\n");
+        returnValue = 1;
+        goto cleanup;
+    }
+
+    cleanup:
         if (file != NULL) {
             fclose(file);
         }
+        if (file2 != NULL) {
+            fclose(file2);
+        }
     
-    err_free:
         free(dir_src);
         return returnValue;
 }
