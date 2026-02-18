@@ -1,5 +1,10 @@
 # JIV
 
+![GitHub issues](https://img.shields.io/github/issues/seesee010/Jiv)
+![GitHub PRs](https://img.shields.io/github/issues-pr/seesee010/Jiv)
+![GitHub last commit](https://img.shields.io/github/last-commit/seesee010/Jiv)
+![GitHub License](https://img.shields.io/github/license/seesee010/Jiv)
+
 ## What is it for?
 Ever worked with IntelliJ?
 
